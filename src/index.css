@@ -1,13 +1,215 @@
+@import url("https://fonts.googleapis.com/css?family=Montserrat&display=swap");
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
-    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+    "Droid Sans", "Helvetica Neue", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  box-sizing: border-box;
+  background-color: #edf5f0;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
+.login-box {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  width: 378px;
+  height: 250px;
+  max-width: 100%;
+  align-items: center;
+  background-image: linear-gradient(purple, rgb(187, 104, 208));
+  margin-top: calc(50vh - 200px);
+  position: relative;
+  border-radius: 4px;
+}
+
+.login-tittle {
+  font-family: "Montserrat", sans-serif;
+  font-size: 26px;
+  font-weight: 100px;
+}
+
+.login-input {
+  width: 80%;
+  height: 32px;
+  border-radius: 4px;
+  outline: none;
+  border: none;
+  box-shadow: 1px 2px 5px #333;
+  font-size: 16px;
+  text-align: center;
+}
+
+.login-button {
+  cursor: pointer;
+  width: 100%;
+  bottom: 0;
+  position: absolute;
+  height: 52px;
+  outline: none;
+  border: none;
+  background: white;
+  color: purple;
+  font-weight: 600;
+  border-top: 1px solid purple;
+}
+
+.chat-box::-webkit-scrollbar {
+  width: 0 !important;
+}
+.chat-box {
+  overflow: -moz-scrollbars-none;
+}
+.chat-box {
+  -ms-overflow-style: none;
+}
+
+.chat-box {
+  display: flex;
+  flex-direction: column;
+  margin: 20px auto 0;
+  width: 768px;
+  max-width: 100%;
+  height: 500px;
+  max-height: 80vh;
+  border: 1px solid #333;
+  position: relative;
+  overflow-y: scroll;
+  background-color: rgb(60, 60, 60);
+}
+
+.message-box-other {
+  animation: slide-left .4s ease-in;
+  margin-left: 10px;
+  align-self: flex-start;
+  background-color: purple;
+  border-radius: 30px;
+  max-width: 80%;
+  width: 0px auto;
+  margin: 20px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 20px;
+  height: 45px;
+  box-shadow: 1px 3px 5px purple;
+}
+
+.message-box-author {
+  animation: slide-right .4s ease-in;
+  margin-right: 10px;
+  align-self: flex-end;
+  background-color: rgb(187, 104, 208);
+  border-radius: 30px;
+  max-width: 80%;
+  width: 0px auto;
+  margin: 20px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 20px;
+  height: 45px;
+  box-shadow: 1px 3px 5px rgb(187, 104, 208);
+}
+
+@keyframes slide-left {
+  0% {
+    transform: translate(-50%);
+  }
+  100% {
+    transform: translate(0%);
+  }
+}
+
+@keyframes slide-right {
+  0% {
+    transform: translate(50%);
+  }
+  100% {
+    transform: translate(0%);
+  }
+}
+
+.message-info {
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.message-text {
+  color: white;
+  font-weight: 400;
+  font-size: 15px;
+}
+
+.message-author {
+  color: white;
+  opacity: 0.6;
+  font-size: 14px;
+}
+
+.message-author::before {
+  content: "by: ";
+}
+
+.message-date {
+  color: white;
+  font-size: 13px;
+  opacity: 0.6;
+}
+
+.message-date::before {
+  content: "at: ";
+}
+
+.user-controllers {
+  width: 768px;
+  height: 90px;
+  margin: 0 auto;
+  max-width: 100%;
+  display: flex;
+}
+
+input.message-text {
+  flex: 1;
+  outline: none;
+  color: #333;
+  padding-left: 10px;
+  border-bottom-left-radius: 4px;
+  border-top: none;
+  border-left: none;
+}
+
+input.message-text:focus {
+  border: 2px solid purple;
+  border-top: none;
+}
+
+button.send-message {
+  border-top-left-radius: 0 !important;
+  border-bottom-left-radius: 0 !important;
+  font-weight: 600;
+  padding: 15px 50px 15px 50px;
+  outline: none;
+  border: 1px solid purple;
+  border-radius: 4px;
+  background-color: white;
+  color: purple;
+}
+
+button.send-message:hover {
+  cursor: pointer;
+  background-color: purple;
+  color: white;
+}
+
+button.send-message:disabled {
+  cursor: not-allowed;
+  border-radius: 4px;
+  background-color: white;
+  color: rgba(3, 3, 3, 0.6);
+  border: 1px solid rgba(3, 3, 3, 0.6);
 }

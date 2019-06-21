@@ -1,26 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+import Chat from './pages/Chat';
+
+export default function App() {
+    const [nickname, setNickname] = useState('')
+    const [inputValue, setInputValue] = useState('');
+
+    if (nickname) {
+        return (
+            <Chat nickname={nickname} />
+        );
+    } else {
+        return (
+            <div className="login-box">
+                <h3 className="login-tittle">Digite seu nome de usuário</h3>
+                <input type="text" onChange={(e) => setInputValue(e.target.value)} className="login-input" />
+                <button disabled={!inputValue} onClick={() => setNickname(inputValue)} className="login-button">ENTRAR</button>
+            </div>
+        );
+    }
 }
-
-export default App;
