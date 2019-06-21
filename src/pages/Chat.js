@@ -37,7 +37,7 @@ function Chat(props) {
   }
 
   async function loadRealTime() {
-    const io = socket('http://localhost:3001');
+    const io = socket('https://chat-api-fast-chat.herokuapp.com/');
 
     io.on('newMessage', data => {
       setMessages(data)
