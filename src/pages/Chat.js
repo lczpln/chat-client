@@ -3,6 +3,8 @@ import socket from 'socket.io-client';
 
 import api from '../services/api';
 
+import Loading from '../components/loading';
+
 function Chat(props) {
   const [messages, setMessages] = useState([]);
   const [userNickname, setUserNickname] = useState('');
@@ -68,6 +70,7 @@ function Chat(props) {
   return (
     <div className="App">
       <div className="chat-box" id="chatBox">
+        <Loading />
         {messages.map((message, _) => (
           <div key={_} className={message.nickname === userNickname ? "message-box-author animated fadeInLeft" : "message-box-other animated fadeInRight"}>
             <span className="message-text">{message.msg}</span>
@@ -79,7 +82,17 @@ function Chat(props) {
         ))}
       </div>
       <form className="user-controllers" onSubmit={(e) => userSendMessage(e)}>
-        <input className="message-text" placeholder="Type your new message here." id="messageText" value={requestData.message} type="text" maxLength="60" onChange={(e) => setRequestData({ ...requestData, message: e.target.value })} />
+        <input
+          autoFocus={true}
+          autoComplete="off"
+          className="message-text"
+          placeholder="Type your new message here."
+          id="messageText"
+          value={requestData.message}
+          type="text"
+          maxLength="60"
+          onChange={(e) => setRequestData({ ...requestData, message: e.target.value.slice(0,1).toUpperCase() + e.target.value.slice(1, e.target.value.length) })}
+        />
         <button className="send-message" disabled={!requestData.message || !requestData.nickname}>SEND</button>
       </form>
       <div className="button-div">
