@@ -147,7 +147,7 @@ body {
 }
 
 .user-controllers {
-  width: 810px;
+  width: 768px;
   height: 90px;
   margin: 0 auto;
   max-width: 100%;
@@ -163,6 +163,7 @@ input.message-text {
   border-top: none;
   border: 1px solid lightgray;
   border-right: none;
+  box-sizing: border-box;
 }
 
 input.message-text:focus {
