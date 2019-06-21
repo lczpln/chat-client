@@ -7,6 +7,7 @@ import Loading from '../components/loading';
 
 function Chat(props) {
   const [messages, setMessages] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [userNickname, setUserNickname] = useState('');
   const [requestData, setRequestData] = useState({
     nickname: '',
@@ -28,9 +29,6 @@ function Chat(props) {
 
     loadMessages()
     loadRealTime()
-
-    const chatBox = document.querySelector("#chatBox");
-    chatBox.scrollTop = chatBox.scrollHeight;
   }, [])
 
   async function loadMessages() {
@@ -38,6 +36,7 @@ function Chat(props) {
       const response = await api.get('/');
 
       setMessages(response.data)
+      setLoading(false);
     } catch (e) {
       alert(`Falha de conexão => ${e}`)
     }
@@ -56,8 +55,10 @@ function Chat(props) {
 
     e.preventDefault();
 
+    const data = { "msg": requestData.message, "date": Date() }
+
     try {
-      const response = await api.post(`/message/${requestData.nickname}/${requestData.message}`)
+      const response = await api.post(`/message/${requestData.nickname}`, data)
 
       if (response) {
         setRequestData({ ...requestData, message: '' })
@@ -70,7 +71,7 @@ function Chat(props) {
   return (
     <div className="App">
       <div className="chat-box" id="chatBox">
-        <Loading />
+        {loading && <Loading />}
         {messages.map((message, _) => (
           <div key={_} className={message.nickname === userNickname ? "message-box-author animated fadeInLeft" : "message-box-other animated fadeInRight"}>
             <span className="message-text">{message.msg}</span>
@@ -91,7 +92,7 @@ function Chat(props) {
           value={requestData.message}
           type="text"
           maxLength="60"
-          onChange={(e) => setRequestData({ ...requestData, message: e.target.value.slice(0,1).toUpperCase() + e.target.value.slice(1, e.target.value.length) })}
+          onChange={(e) => setRequestData({ ...requestData, message: e.target.value.slice(0, 1).toUpperCase() + e.target.value.slice(1, e.target.value.length) })}
         />
         <button className="send-message" disabled={!requestData.message || !requestData.nickname}>SEND</button>
       </form>
