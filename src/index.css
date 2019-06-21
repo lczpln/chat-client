@@ -66,6 +66,8 @@ body {
 }
 
 .chat-box {
+  padding-left: 20px;
+  padding-right: 20px;
   display: flex;
   flex-direction: column;
   margin: 20px auto 0;
@@ -81,11 +83,10 @@ body {
 
 .message-box-other {
   animation: slide-left .4s ease-in;
-  margin-left: 10px;
   align-self: flex-start;
   background-color: purple;
   border-radius: 30px;
-  max-width: 80%;
+  max-width: 90%;
   width: 0px auto;
   margin: 20px 0;
   display: flex;
@@ -99,11 +100,10 @@ body {
 
 .message-box-author {
   animation: slide-right .4s ease-in;
-  margin-right: 10px;
   align-self: flex-end;
   background-color: rgb(187, 104, 208);
   border-radius: 30px;
-  max-width: 80%;
+  max-width: 90%;
   width: 0px auto;
   margin: 20px 0;
   display: flex;
@@ -166,7 +166,7 @@ body {
 }
 
 .user-controllers {
-  width: 768px;
+  width: 810px;
   height: 90px;
   margin: 0 auto;
   max-width: 100%;
@@ -186,15 +186,24 @@ input.message-text {
 input.message-text:focus {
   border: 2px solid purple;
   border-top: none;
+  border-right: none;
+}
+
+input.message-text:focus + button.send-message {
+  border-left: none;
+  border: 2px solid purple;
+  border-top: none;
 }
 
 button.send-message {
+  box-sizing: border-box;
   border-top-left-radius: 0 !important;
   border-bottom-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
   font-weight: 600;
   padding: 15px 50px 15px 50px;
   outline: none;
-  border: 1px solid purple;
+  border: none;
   border-radius: 4px;
   background-color: white;
   color: purple;
@@ -211,5 +220,4 @@ button.send-message:disabled {
   border-radius: 4px;
   background-color: white;
   color: rgba(3, 3, 3, 0.6);
-  border: 1px solid rgba(3, 3, 3, 0.6);
 }

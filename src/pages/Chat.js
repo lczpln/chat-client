@@ -12,6 +12,11 @@ function Chat(props) {
   })
 
   useEffect(() => {
+    var realHeight = document.querySelector("#chatBox").scrollHeight;
+    document.querySelector("#chatBox").scrollTo(0, realHeight)
+  }, [messages])
+
+  useEffect(() => {
     if (props.nickname) {
       setUserNickname(props.nickname)
       setRequestData({ ...requestData, nickname: props.nickname })
@@ -21,6 +26,9 @@ function Chat(props) {
 
     loadMessages()
     loadRealTime()
+
+    const chatBox = document.querySelector("#chatBox");
+    chatBox.scrollTop = chatBox.scrollHeight;
   }, [])
 
   async function loadMessages() {
@@ -28,11 +36,8 @@ function Chat(props) {
       const response = await api.get('/');
 
       setMessages(response.data)
-      const messageText = document.getElementById("#messageText");
-      messageText.value = ''
-
     } catch (e) {
-      alert('Conexão com a API mal sucedida.')
+      alert(`Falha de conexão => ${e}`)
     }
   }
 
@@ -42,15 +47,19 @@ function Chat(props) {
     io.on('newMessage', data => {
       setMessages(data)
     })
-
-    const chatBox = document.querySelector("#chatBox");
-    chatBox.scrollTop = chatBox.scrollHeight;
   }
 
-  async function makeRequest() {
+  async function userSendMessage(e) {
+    if (!requestData.message || !requestData.nickname) return false
+
+    e.preventDefault();
+
     try {
       const response = await api.post(`/message/${requestData.nickname}/${requestData.message}`)
 
+      if (response) {
+        setRequestData({ ...requestData, message: '' })
+      }
     } catch (error) {
       alert(`Não foi possível enviar sua mensagem => ${error}`)
     }
@@ -60,7 +69,7 @@ function Chat(props) {
     <div className="App">
       <div className="chat-box" id="chatBox">
         {messages.map((message, _) => (
-          <div key={_} className={message.nickname === userNickname ? "message-box-author" : "message-box-other"}>
+          <div key={_} className={message.nickname === userNickname ? "message-box-author animated fadeInLeft" : "message-box-other animated fadeInRight"}>
             <span className="message-text">{message.msg}</span>
             <div className="message-info">
               <span className="message-author">{message.nickname}</span>
@@ -69,10 +78,10 @@ function Chat(props) {
           </div>
         ))}
       </div>
-      <div className="user-controllers">
-        <input className="message-text" id="messageText" type="text" maxLength="60" onChange={(e) => setRequestData({ ...requestData, message: e.target.value })} />
-        <button className="send-message" disabled={!requestData.message || !requestData.nickname} onClick={() => makeRequest()}>SEND</button>
-      </div>
+      <form className="user-controllers" onSubmit={(e) => userSendMessage(e)}>
+        <input className="message-text" placeholder="Type your new message here." id="messageText" value={requestData.message} type="text" maxLength="60" onChange={(e) => setRequestData({ ...requestData, message: e.target.value })} />
+        <button className="send-message" disabled={!requestData.message || !requestData.nickname}>SEND</button>
+      </form>
       <div className="button-div">
       </div>
     </div>
