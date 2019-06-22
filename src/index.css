@@ -114,6 +114,22 @@ body {
   box-shadow: 1px 3px 5px rgb(187, 104, 208);
 }
 
+.message-box-system {
+  align-self: center;
+  background-color: lightskyblue;
+  border-radius: 30px;
+  max-width: 90%;
+  width: 0px auto;
+  margin: 20px auto 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  padding: 20px;
+  height: 45px;
+  box-shadow: 1px 3px 5px rgb(115, 174, 211);
+}
+
 .message-info {
   padding-left: 20px;
   display: flex;

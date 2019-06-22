@@ -43,10 +43,18 @@ function Chat(props) {
   }
 
   async function loadRealTime() {
-    const io = socket('https://chat-api-fast-chat.herokuapp.com/');
+    const io = socket('https://chat-api-fast-chat.herokuapp.com/'); /* https://chat-api-fast-chat.herokuapp.com/ */
 
     io.on('newMessage', data => {
       setMessages(data)
+    })
+
+    io.on('reqWelcome', async data => {
+      await api.post(`/welcome/${props.nickname}`, { "date": Date() })
+    })
+
+    io.on('reqGoodbye', async data => {
+      await api.post(`/welcome/${props.nickname}`, { "date": Date() })
     })
   }
 
@@ -73,13 +81,22 @@ function Chat(props) {
       <div className="chat-box" id="chatBox">
         {loading && <Loading />}
         {messages.map((message, _) => (
-          <div key={_} className={message.nickname === userNickname ? "message-box-author animated fadeInLeft" : "message-box-other animated fadeInRight"}>
-            <span className="message-text">{message.msg}</span>
-            <div className="message-info">
-              <span className="message-author">{message.nickname}</span>
-              <span className="message-date">{message.date.split(" ")[4]}</span>
+          message.nickname === "MASTER123456789ROBOT" ? (
+            <div className="message-box-system">
+              <span className="message-text">{message.msg}</span>
+              <div className="message-info">
+                <span className="message-date">{message.date ? message.date.split(" ")[4] : ''}</span>
+              </div>
             </div>
-          </div>
+          ) : (
+              <div key={_} className={message.nickname === userNickname ? "message-box-author animated fadeInLeft" : "message-box-other animated fadeInRight"}>
+                <span className="message-text">{message.msg}</span>
+                <div className="message-info">
+                  <span className="message-author">{message.nickname}</span>
+                  <span className="message-date">{message.date.split(" ")[4]}</span>
+                </div>
+              </div>
+            )
         ))}
       </div>
       <form className="user-controllers" onSubmit={(e) => userSendMessage(e)}>
