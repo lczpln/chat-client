@@ -10,6 +10,7 @@ function Chat(props) {
   const [loading, setLoading] = useState(true);
   const [userNickname, setUserNickname] = useState('');
   const [requestData, setRequestData] = useState({
+    portrait: '',
     nickname: '',
     message: '',
   })
@@ -22,14 +23,14 @@ function Chat(props) {
   useEffect(() => {
     if (props.nickname) {
       setUserNickname(props.nickname)
-      setRequestData({ ...requestData, nickname: props.nickname })
+      setRequestData({ ...requestData, nickname: props.nickname, portrait: `https://api.adorable.io/avatars/40/${props.nickname.split(" ").join("+")}.png` })
     } else {
       return window.location.href = '/';
     }
-
     loadMessages()
     loadRealTime()
   }, [])
+
 
   async function loadMessages() {
     try {
@@ -63,7 +64,7 @@ function Chat(props) {
 
     e.preventDefault();
 
-    const data = { "msg": requestData.message, "date": Date() }
+    const data = { "portrait": requestData.portrait, "msg": requestData.message, "date": Date() }
 
     try {
       const response = await api.post(`/message/${requestData.nickname}`, data)
@@ -82,7 +83,8 @@ function Chat(props) {
         {loading && <Loading />}
         {messages.map((message, _) => (
           message.nickname === "MASTER123456789ROBOT" ? (
-            <div className="message-box-system">
+            <div key={_} className="message-box-system">
+              <img className="user-portrait" src="https://robohash.org/robot" alt="" />
               <span className="message-text">{message.msg}</span>
               <div className="message-info">
                 <span className="message-date">{message.date ? message.date.split(" ")[4] : ''}</span>
@@ -90,10 +92,14 @@ function Chat(props) {
             </div>
           ) : (
               <div key={_} className={message.nickname === userNickname ? "message-box-author animated fadeInLeft" : "message-box-other animated fadeInRight"}>
+                {message.nickname !== userNickname && <img className="user-portrait portrait-right" src={message.portrait} alt="" />}
                 <span className="message-text">{message.msg}</span>
-                <div className="message-info">
-                  <span className="message-author">{message.nickname}</span>
-                  <span className="message-date">{message.date.split(" ")[4]}</span>
+                <div className="portrait-and-message-info">
+                  <div className="message-info">
+                    <span className="message-author">{message.nickname}</span>
+                    <span className="message-date">{message.date.split(" ")[4]}</span>
+                  </div>
+                  {message.nickname === userNickname && <img className="user-portrait portrait-left" src={message.portrait} alt="" />}
                 </div>
               </div>
             )
