@@ -1,8 +1,11 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Screenshot
 
-## Available Scripts
+![Alt text](https://github.com/lczpln/chat-client/blob/master/chat-example.png)
 
-In the project directory, you can run:
+## Website
+
+https://fast-chat999.herokuapp.com/
+
 
 ### `npm start`
 
