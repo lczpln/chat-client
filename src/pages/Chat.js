@@ -4,6 +4,7 @@ import socket from 'socket.io-client';
 import api from '../services/api';
 
 import Loading from '../components/loading';
+import sendIcon from '../img/message.svg';
 
 function Chat(props) {
   const [canSend, setCanSend] = useState(true);
@@ -122,7 +123,7 @@ function Chat(props) {
         />
         <div className="send-message-div">
           <button className="send-message" disabled={!requestData.message || !requestData.nickname || !canSend}>
-            <img src={require("../img/message.svg")} alt="" height={30} width={30} />
+            <img src={sendIcon} alt="" height={30} width={30} />
           </button>
         </div>
       </form>
