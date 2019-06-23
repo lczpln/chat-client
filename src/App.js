@@ -31,7 +31,7 @@ export default function App() {
         e.preventDefault();
 
         if (globalNicknames.includes(inputValue)) return alert("Alguem usou esse nickname a pouco tempo atrás")
-        
+
         setNickname(inputValue);
     }
 
@@ -41,11 +41,13 @@ export default function App() {
         );
     } else {
         return (
-            <form className="login-box" onSubmit={(e) => checkNickname(e)}>
-                <h3 className="login-tittle">Digite seu nome de usuário</h3>
-                <input type="text" onChange={(e) => setInputValue(e.target.value)} className="login-input" />
-                <button disabled={!inputValue} className="login-button">ENTRAR</button>
-            </form >
+            <div className="background fadeIn animated">
+                <form className="login-box fadeInDown animated" onSubmit={(e) => checkNickname(e)}>
+                    <h3 className="login-tittle">Digite seu nome</h3>
+                    <input type="text" placeholder={`Crie um nick para usar no chat.`} onChange={(e) => setInputValue(e.target.value)} className="login-input" />
+                    <button disabled={!inputValue} className="login-button">ENTRAR</button>
+                </form >
+            </div>
         );
     }
 }

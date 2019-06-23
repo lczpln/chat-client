@@ -6,6 +6,7 @@ import api from '../services/api';
 import Loading from '../components/loading';
 
 function Chat(props) {
+  const [canSend, setCanSend] = useState(true);
   const [messages, setMessages] = useState([]);
   const [loading, setLoading] = useState(true);
   const [userNickname, setUserNickname] = useState('');
@@ -61,7 +62,7 @@ function Chat(props) {
 
   async function userSendMessage(e) {
     if (!requestData.message || !requestData.nickname) return false
-
+    setCanSend(false);
     e.preventDefault();
 
     const data = { "portrait": requestData.portrait, "msg": requestData.message, "date": Date() }
@@ -71,6 +72,7 @@ function Chat(props) {
 
       if (response) {
         setRequestData({ ...requestData, message: '' })
+        setCanSend(true);
       }
     } catch (error) {
       alert(`Não foi possível enviar sua mensagem => ${error}`)
@@ -97,7 +99,7 @@ function Chat(props) {
                 <div className="portrait-and-message-info">
                   <div className="message-info">
                     <span className="message-author">{message.nickname}</span>
-                    <span className="message-date">{message.date.split(" ")[4]}</span>
+                    <span className="message-date">{message.date ? message.date.split(" ")[4] : 'unknow'}</span>
                   </div>
                   {message.nickname === userNickname && <img className="user-portrait portrait-left" src={message.portrait} alt="" />}
                 </div>
@@ -107,6 +109,7 @@ function Chat(props) {
       </div>
       <form className="user-controllers" onSubmit={(e) => userSendMessage(e)}>
         <input
+          disabled={!canSend}
           autoFocus={true}
           autoComplete="off"
           className="message-text"
@@ -117,7 +120,11 @@ function Chat(props) {
           maxLength="60"
           onChange={(e) => setRequestData({ ...requestData, message: e.target.value.slice(0, 1).toUpperCase() + e.target.value.slice(1, e.target.value.length) })}
         />
-        <button className="send-message" disabled={!requestData.message || !requestData.nickname}>SEND</button>
+        <div className="send-message-div">
+          <button className="send-message" disabled={!requestData.message || !requestData.nickname || !canSend}>
+            <img src={require("../message.svg")} alt="" height={30} width={30} />
+          </button>
+        </div>
       </form>
       <div className="button-div">
       </div>

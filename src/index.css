@@ -8,6 +8,17 @@ body {
   -moz-osx-font-smoothing: grayscale;
   box-sizing: border-box;
   background-color: #edf5f0;
+  height: 100%;
+}
+
+.background {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background: url(./background.jpg) center no-repeat;
+  background-size: cover;
 }
 
 .login-box {
@@ -16,18 +27,19 @@ body {
   margin: 0 auto;
   width: 378px;
   height: 250px;
-  max-width: 100%;
+  max-width: 90%;
   align-items: center;
-  background-image: linear-gradient(purple, rgb(187, 104, 208));
+  background-image: linear-gradient(#fb1464, #4c134a);
   margin-top: calc(50vh - 200px);
   position: relative;
   border-radius: 4px;
+  box-shadow: 6px 6px 10px rgba(60, 60, 60, 2);
 }
 
 .login-tittle {
-  font-family: "Montserrat", sans-serif;
-  font-size: 26px;
-  font-weight: 100px;
+  font-size: 24px;
+  font-weight: 100;
+  color: white;
 }
 
 .login-input {
@@ -41,6 +53,10 @@ body {
   text-align: center;
 }
 
+.login-input::placeholder {
+  font-style: italic;
+}
+
 .login-button {
   cursor: pointer;
   width: 100%;
@@ -50,9 +66,10 @@ body {
   outline: none;
   border: none;
   background: white;
-  color: purple;
+  color: #7a1050;
   font-weight: 600;
-  border-top: 1px solid purple;
+  font-size: 18px;
+  border-top: 1px solid #7a1050;
 }
 
 .chat-box::-webkit-scrollbar {
@@ -74,8 +91,8 @@ body {
   margin: 0 auto;
   width: 768px;
   max-width: 100%;
-  height: 500px;
-  max-height: 80vh;
+  min-height: 240px;
+  height: 90vh;
   border: 1px solid #333;
   position: relative;
   overflow-y: scroll;
@@ -84,7 +101,7 @@ body {
 
 .message-box-other {
   align-self: flex-start;
-  background-color: purple;
+  background-color: #7a1050;
   border-radius: 30px;
   max-width: 90%;
   width: 0px auto;
@@ -94,13 +111,13 @@ body {
   align-items: center;
   box-sizing: border-box;
   padding: 20px 10px 20px 10px;
-  height: 45px;
-  box-shadow: 1px 3px 5px purple;
+  height: 45px auto;
+  box-shadow: 1px 3px 5px rgb(30, 30, 30);
 }
 
 .message-box-author {
   align-self: flex-end;
-  background-color: rgb(187, 104, 208);
+  background-color: #fb1464;
   border-radius: 30px;
   max-width: 90%;
   width: 0px auto;
@@ -110,8 +127,8 @@ body {
   align-items: center;
   box-sizing: border-box;
   padding: 20px 10px 20px 10px;
-  height: 45px;
-  box-shadow: 1px 3px 5px rgb(187, 104, 208);
+  height: 45px auto;
+  box-shadow: 1px 3px 5px rgb(30, 30, 30);
 }
 
 .message-box-system {
@@ -120,14 +137,14 @@ body {
   border-radius: 30px;
   max-width: 90%;
   width: 0px auto;
-  margin: 20px auto 0;
+  margin: 20px auto;
   display: flex;
   justify-content: space-between;
   align-items: center;
   box-sizing: border-box;
   padding: 20px;
-  height: 45px;
-  box-shadow: 1px 3px 5px rgb(115, 174, 211);
+  height: 45px auto;
+  box-shadow: 1px 3px 5px rgb(30, 30, 30);
 }
 
 img.user-portrait {
@@ -167,7 +184,7 @@ img.user-portrait {
 }
 
 .message-author::before {
-  content: "by: ";
+  content: "por: ";
 }
 
 .message-date {
@@ -177,12 +194,12 @@ img.user-portrait {
 }
 
 .message-date::before {
-  content: "at: ";
+  content: "as: ";
 }
 
 .user-controllers {
   width: 768px;
-  height: 90px;
+  height: 10vh;
   margin: 0 auto;
   max-width: 100%;
   display: flex;
@@ -198,45 +215,74 @@ input.message-text {
   border: 1px solid lightgray;
   border-right: none;
   box-sizing: border-box;
+  height: 100%;
+}
+
+input.message-text:disabled {
+  background-color: white;
 }
 
 input.message-text:focus {
-  border: 2px solid purple;
+  border: 2px solid rgb(90, 90, 90);
   border-top: none;
   border-right: none;
 }
 
-input.message-text:focus + button.send-message {
-  border: 2px solid purple;
+input.message-text:focus + div.send-message-div {
+  border: 2px solid rgb(90, 90, 90);
   border-left: none;
   border-top: none;
 }
 
-button.send-message {
+div.send-message-div {
   border: 1px solid lightgray;
   box-sizing: border-box;
   border-top-left-radius: 0 !important;
   border-bottom-left-radius: 0 !important;
   border-top-right-radius: 0 !important;
   font-weight: 600;
-  padding: 15px 50px 15px 50px;
+  padding: 15px 20px 15px 50px;
   outline: none;
   border-left: none;
+  border-top: none;
   border-radius: 4px;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
   background-color: white;
-  color: purple;
+  color: #fb1464;
+  height: 100%;
+}
+
+button.send-message {
+  border-radius: 50% !important;
+  border: none;
+  box-sizing: border-box;
+  padding: 10px 6px;
+  outline: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #fb1464;
+}
+
+button.send-message img {
+  margin-left: 8px;
 }
 
 button.send-message:hover {
   cursor: pointer;
-  background-color: purple;
+  background-color: #fb1464;
   color: white;
+}
+
+button.send-message img {
+  filter: brightness(0) grayscale(1) invert(1);
 }
 
 button.send-message:disabled {
   cursor: not-allowed;
   border-radius: 4px;
-  background-color: white;
   color: rgba(3, 3, 3, 0.6);
 }
 
