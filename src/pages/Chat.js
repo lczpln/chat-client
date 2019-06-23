@@ -122,7 +122,7 @@ function Chat(props) {
         />
         <div className="send-message-div">
           <button className="send-message" disabled={!requestData.message || !requestData.nickname || !canSend}>
-            <img src={require("../message.svg")} alt="" height={30} width={30} />
+            <img src={require("../img/message.svg")} alt="" height={30} width={30} />
           </button>
         </div>
       </form>

@@ -17,7 +17,7 @@ body {
   right: 0;
   bottom: 0;
   left: 0;
-  background: url(./background.jpg) center no-repeat;
+  background: url(./img/background.jpg) center no-repeat;
   background-size: cover;
 }
 
@@ -210,7 +210,6 @@ input.message-text {
   outline: none;
   color: #333;
   padding-left: 10px;
-  border-bottom-left-radius: 4px;
   border-top: none;
   border: 1px solid lightgray;
   border-right: none;
@@ -237,15 +236,11 @@ input.message-text:focus + div.send-message-div {
 div.send-message-div {
   border: 1px solid lightgray;
   box-sizing: border-box;
-  border-top-left-radius: 0 !important;
-  border-bottom-left-radius: 0 !important;
-  border-top-right-radius: 0 !important;
   font-weight: 600;
   padding: 15px 20px 15px 50px;
   outline: none;
   border-left: none;
   border-top: none;
-  border-radius: 4px;
   display: flex;
   justify-content: flex-end;
   align-items: center;
